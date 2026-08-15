@@ -246,13 +246,15 @@ function ParticleCanvas() {
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      const palette = ["200, 255, 92", "255, 107, 136", "80, 227, 194", "255, 190, 85"];
       particles = Array.from({ length: Math.min(70, Math.floor(width / 18)) }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
         vx: (Math.random() - 0.5) * 0.18,
         vy: (Math.random() - 0.5) * 0.18,
         radius: Math.random() * 1.2 + 0.35,
-        alpha: Math.random() * 0.35 + 0.1,
+        alpha: Math.random() * 0.3 + 0.08,
+        color: palette[Math.floor(Math.random() * palette.length)],
       }));
     };
 
@@ -265,7 +267,7 @@ function ParticleCanvas() {
         }
         context.beginPath();
         context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-        context.fillStyle = `rgba(128, 218, 255, ${particle.alpha})`;
+        context.fillStyle = `rgba(${particle.color}, ${particle.alpha})`;
         context.fill();
 
         for (let next = index + 1; next < particles.length; next += 1) {
@@ -275,7 +277,7 @@ function ParticleCanvas() {
             context.beginPath();
             context.moveTo(particle.x, particle.y);
             context.lineTo(other.x, other.y);
-            context.strokeStyle = `rgba(86, 180, 220, ${(1 - distance / 105) * 0.06})`;
+            context.strokeStyle = `rgba(155, 180, 164, ${(1 - distance / 105) * 0.06})`;
             context.lineWidth = 0.6;
             context.stroke();
           }

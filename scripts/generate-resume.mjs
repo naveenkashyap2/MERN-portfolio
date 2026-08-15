@@ -15,13 +15,13 @@ const doc = new PDFDocument({ size: "A4", margin: 0, info: {
 doc.pipe(fs.createWriteStream(output));
 
 const C = {
-  navy: "#0B1C2C",
-  navy2: "#132B3D",
-  cyan: "#18B8D5",
-  ink: "#172A38",
-  muted: "#5F7482",
-  light: "#F1F6F8",
-  line: "#D8E4E9",
+  navy: "#111913",
+  navy2: "#1B281E",
+  cyan: "#2AA77C",
+  ink: "#17251D",
+  muted: "#64736A",
+  light: "#F3F7F1",
+  line: "#D9E5DC",
   white: "#FFFFFF",
 };
 const W = 595.28;
@@ -37,7 +37,7 @@ function text(value, x, y, options = {}) {
 
 function sidebarTitle(value, y) {
   text(value.toUpperCase(), 22, y, { size: 7.5, color: C.cyan, font: "Helvetica-Bold", characterSpacing: 1.2 });
-  doc.moveTo(22, y + 15).lineTo(150, y + 15).lineWidth(0.5).strokeColor("#BFD1D9").stroke();
+  doc.moveTo(22, y + 15).lineTo(150, y + 15).lineWidth(0.5).strokeColor("#CBD8CE").stroke();
   return y + 25;
 }
 
@@ -57,14 +57,14 @@ function bullet(value, x, y, width, size = 7.45) {
 doc.rect(0, 0, W, H).fill(C.white);
 doc.rect(0, 0, W, 108).fill(C.navy);
 doc.rect(0, 108, sideW, H - 108).fill(C.light);
-doc.rect(sideW - 1, 108, 1, H - 108).fill("#DCE8EC");
+doc.rect(sideW - 1, 108, 1, H - 108).fill("#DEE8E0");
 
 // Header monogram
 doc.roundedRect(25, 25, 58, 58, 5).lineWidth(1).strokeColor(C.cyan).stroke();
 text("NK", 34, 42, { size: 21, color: C.cyan, font: "Helvetica-Bold", width: 40, align: "center" });
 text("NAVEEN KUMAR", 105, 24, { size: 23, color: C.white, font: "Helvetica-Bold", characterSpacing: 0.5 });
 text("FULL STACK DEVELOPER  /  MERN STACK DEVELOPER", 106, 56, { size: 8, color: C.cyan, font: "Helvetica-Bold", characterSpacing: 1.1 });
-text("Building responsive applications, real-time products, and AI-powered experiences.", 106, 75, { size: 8, color: "#B8CAD3", width: 430 });
+text("Building responsive applications, real-time products, and AI-powered experiences.", 106, 75, { size: 8, color: "#C4D0C7", width: 430 });
 
 // Sidebar
 let sy = 130;
