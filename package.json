@@ -1,0 +1,29 @@
+{
+  "name": "naveen-kumar-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview --host 0.0.0.0",
+    "resume": "node scripts/generate-resume.mjs"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "gsap": "^3.13.0",
+    "lucide-react": "^0.468.0",
+    "vite": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@eslint/js": "latest",
+    "eslint": "latest",
+    "eslint-plugin-react-hooks": "latest",
+    "eslint-plugin-react-refresh": "latest",
+    "globals": "latest",
+    "pdfkit": "^0.16.0"
+  }
+}
