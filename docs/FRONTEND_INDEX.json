@@ -1,0 +1,276 @@
+{
+  "root": "client/",
+  "locked": true,
+  "stack": [
+    "react",
+    "vite",
+    "javascript",
+    "tailwindcss",
+    "framer-motion",
+    "react-router",
+    "axios",
+    "react-query",
+    "recharts",
+    "lucide-react"
+  ],
+  "public": [
+    "public/favicon.svg",
+    "public/logo.svg",
+    "public/manifest.json",
+    "public/robots.txt"
+  ],
+  "app": [
+    "src/app/App.jsx",
+    "src/app/main.jsx",
+    "src/app/router.jsx",
+    "src/app/providers.jsx",
+    "src/app/queryClient.js"
+  ],
+  "assets": [
+    "src/assets/images/",
+    "src/assets/icons/",
+    "src/assets/illustrations/",
+    "src/assets/fonts/"
+  ],
+  "components": {
+    "ui": [
+      "Button.jsx",
+      "Input.jsx",
+      "Select.jsx",
+      "Modal.jsx",
+      "Drawer.jsx",
+      "Badge.jsx",
+      "Card.jsx",
+      "Skeleton.jsx",
+      "Spinner.jsx",
+      "Tooltip.jsx",
+      "Tabs.jsx",
+      "Dropdown.jsx",
+      "Progress.jsx",
+      "EmptyState.jsx"
+    ],
+    "layout": [
+      "Navbar.jsx",
+      "Sidebar.jsx",
+      "MobileNavbar.jsx",
+      "DashboardLayout.jsx",
+      "AuthLayout.jsx",
+      "Footer.jsx"
+    ],
+    "common": [
+      "Logo.jsx",
+      "PageLoader.jsx",
+      "ErrorBoundary.jsx",
+      "ConfirmDialog.jsx",
+      "ProtectedRoute.jsx"
+    ],
+    "charts": [
+      "BudgetChart.jsx",
+      "ExpenseChart.jsx",
+      "TravelStatsChart.jsx"
+    ]
+  },
+  "features": {
+    "auth": [
+      "components/LoginForm.jsx",
+      "components/SignupForm.jsx",
+      "components/GoogleAuth.jsx",
+      "components/ForgotPasswordForm.jsx",
+      "hooks/useAuth.js",
+      "auth.api.js",
+      "auth.validation.js"
+    ],
+    "trips": [
+      "components/TripCard.jsx",
+      "components/TripHeader.jsx",
+      "components/TripStats.jsx",
+      "components/TripTimeline.jsx",
+      "components/DayItinerary.jsx",
+      "hooks/useTrips.js",
+      "hooks/useTrip.js",
+      "trips.api.js",
+      "trip.utils.js"
+    ],
+    "ai": [
+      "components/AIChatBox.jsx",
+      "components/AIMessage.jsx",
+      "components/AIThinking.jsx",
+      "components/AIQuickActions.jsx",
+      "components/AITripGenerator.jsx",
+      "hooks/useAIChat.js",
+      "ai.api.js"
+    ],
+    "planner": [
+      "components/TripPlannerForm.jsx",
+      "components/DestinationInput.jsx",
+      "components/BudgetSelector.jsx",
+      "components/TravelStyle.jsx",
+      "components/StaySelector.jsx",
+      "components/PlacePreferences.jsx",
+      "components/TravelerSelector.jsx",
+      "hooks/useTripPlanner.js",
+      "planner.validation.js"
+    ],
+    "location": [
+      "components/LiveLocation.jsx",
+      "components/LocationPermission.jsx",
+      "components/ArrivalStatus.jsx",
+      "components/DistanceProgress.jsx",
+      "components/WalkingTracker.jsx",
+      "hooks/useGeolocation.js",
+      "hooks/useLocationTracking.js",
+      "location.api.js",
+      "location.utils.js"
+    ],
+    "maps": [
+      "components/TripMap.jsx",
+      "components/RouteMap.jsx",
+      "components/UserMarker.jsx",
+      "components/DestinationMarker.jsx",
+      "components/RoutePolyline.jsx",
+      "hooks/useMapRoute.js",
+      "map.utils.js"
+    ],
+    "transport": [
+      "components/TransportSelector.jsx",
+      "components/TrainResults.jsx",
+      "components/BusResults.jsx",
+      "components/WalkingRoute.jsx",
+      "components/TransportCard.jsx",
+      "components/RouteComparison.jsx",
+      "hooks/useTransport.js",
+      "transport.api.js"
+    ],
+    "hotels": [
+      "components/HotelCard.jsx",
+      "components/HotelFilters.jsx",
+      "components/HotelCategories.jsx",
+      "components/HotelComparison.jsx",
+      "hooks/useHotels.js",
+      "hotels.api.js"
+    ],
+    "places": [
+      "components/PlaceCard.jsx",
+      "components/PlaceFilters.jsx",
+      "components/TempleCard.jsx",
+      "components/GurudwaraCard.jsx",
+      "components/HistoricalPlaceCard.jsx",
+      "components/PlaceDetails.jsx",
+      "hooks/usePlaces.js",
+      "places.api.js"
+    ],
+    "expenses": [
+      "components/ExpenseForm.jsx",
+      "components/ExpenseList.jsx",
+      "components/ExpenseCard.jsx",
+      "components/BudgetOverview.jsx",
+      "hooks/useExpenses.js",
+      "expenses.api.js"
+    ],
+    "profile": [
+      "components/ProfileForm.jsx",
+      "components/TravelPreferences.jsx",
+      "components/SecuritySettings.jsx",
+      "profile.api.js",
+      "profile.validation.js"
+    ]
+  },
+  "pages": [
+    "src/pages/landing/Home.jsx",
+    "src/pages/landing/About.jsx",
+    "src/pages/landing/Features.jsx",
+    "src/pages/auth/Login.jsx",
+    "src/pages/auth/Signup.jsx",
+    "src/pages/auth/ForgotPassword.jsx",
+    "src/pages/auth/ResetPassword.jsx",
+    "src/pages/dashboard/Dashboard.jsx",
+    "src/pages/trips/MyTrips.jsx",
+    "src/pages/trips/CreateTrip.jsx",
+    "src/pages/trips/TripDetails.jsx",
+    "src/pages/trips/EditTrip.jsx",
+    "src/pages/trips/ActiveTrip.jsx",
+    "src/pages/explore/Explore.jsx",
+    "src/pages/transport/Transport.jsx",
+    "src/pages/transport/RouteDetails.jsx",
+    "src/pages/hotels/Hotels.jsx",
+    "src/pages/places/Places.jsx",
+    "src/pages/ai/AIAssistant.jsx",
+    "src/pages/profile/Profile.jsx",
+    "src/pages/profile/Settings.jsx",
+    "src/pages/errors/NotFound.jsx",
+    "src/pages/errors/Unauthorized.jsx",
+    "src/pages/errors/ServerError.jsx"
+  ],
+  "shared": {
+    "hooks": [
+      "src/hooks/useAuth.js",
+      "src/hooks/useDebounce.js",
+      "src/hooks/useMediaQuery.js",
+      "src/hooks/useLocalStorage.js"
+    ],
+    "lib": [
+      "src/lib/axios.js",
+      "src/lib/queryClient.js",
+      "src/lib/leaflet.js"
+    ],
+    "utils": [
+      "src/utils/distance.js",
+      "src/utils/currency.js",
+      "src/utils/date.js",
+      "src/utils/formatters.js",
+      "src/utils/validators.js",
+      "src/utils/errorHandler.js"
+    ],
+    "constants": [
+      "src/constants/routes.js",
+      "src/constants/trip.js",
+      "src/constants/transport.js",
+      "src/constants/places.js",
+      "src/constants/app.js"
+    ],
+    "services": [
+      "src/services/auth.service.js",
+      "src/services/location.service.js",
+      "src/services/notification.service.js",
+      "src/services/storage.service.js"
+    ],
+    "context": [
+      "src/context/AuthContext.jsx",
+      "src/context/TripContext.jsx",
+      "src/context/LocationContext.jsx"
+    ],
+    "store": [
+      "src/store/index.js",
+      "src/store/auth.store.js",
+      "src/store/trip.store.js",
+      "src/store/ui.store.js"
+    ],
+    "styles": [
+      "src/styles/index.css",
+      "src/styles/globals.css",
+      "src/styles/animations.css"
+    ],
+    "types": [
+      "src/types/auth.js",
+      "src/types/trip.js",
+      "src/types/location.js",
+      "src/types/transport.js"
+    ]
+  },
+  "config": [
+    ".env.example",
+    ".gitignore",
+    "eslint.config.js",
+    "vite.config.js",
+    "tailwind.config.js",
+    "postcss.config.js",
+    "package.json",
+    "README.md"
+  ],
+  "tests": [
+    "tests/components/",
+    "tests/features/",
+    "tests/pages/",
+    "tests/utils/"
+  ]
+}

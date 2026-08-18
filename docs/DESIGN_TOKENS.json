@@ -1,0 +1,85 @@
+{
+  "locked": true,
+  "product": "YatraGenie AI",
+  "font": {
+    "family": "Poppins",
+    "fallback": "Inter, system-ui, sans-serif",
+    "hero": { "desktop": 56, "tablet": 40, "mobile": 32, "weight": 700 },
+    "page": { "desktop": 36, "mobile": 28, "weight": 600 },
+    "body": { "size": 16, "weight": 400 },
+    "small": { "min": 13, "max": 14, "weight": 400 },
+    "numbers": { "weight": 600 }
+  },
+  "color": {
+    "bg": {
+      "primary": "#0B1120",
+      "secondary": "#111827",
+      "card": "#172033",
+      "elevated": "#1E293B"
+    },
+    "accent": {
+      "primary": "#3B82F6",
+      "secondary": "#06B6D4"
+    },
+    "status": {
+      "success": "#22C55E",
+      "warning": "#F59E0B",
+      "danger": "#EF4444"
+    },
+    "text": {
+      "primary": "#F8FAFC",
+      "secondary": "#94A3B8"
+    },
+    "border": "rgba(255,255,255,0.08)"
+  },
+  "glass": {
+    "background": "rgba(255,255,255,0.05)",
+    "blurPx": 16,
+    "border": "1px solid rgba(255,255,255,0.08)"
+  },
+  "radius": {
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "card": 20,
+    "hero": 24,
+    "button": 12
+  },
+  "spacing": [4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96],
+  "motion": {
+    "durationsMs": [150, 200, 300, 500],
+    "respectReducedMotion": true,
+    "pageTransition": "fade-up"
+  },
+  "breakpoints": {
+    "mobile": [320, 767],
+    "tablet": [768, 1023],
+    "desktop": [1024, 1439],
+    "large": [1440, null]
+  },
+  "icons": "lucide-react",
+  "cta": {
+    "primary": "Plan My Trip",
+    "secondary": "Explore India"
+  },
+  "trustBadges": ["LIVE VERIFIED", "AI RECOMMENDED", "AI ESTIMATE", "ESTIMATED", "CACHED"],
+  "routes": {
+    "public": ["/", "/explore", "/login", "/register", "/forgot-password"],
+    "protected": [
+      "/plan",
+      "/trips",
+      "/trips/:tripId",
+      "/trips/:tripId/live",
+      "/trips/:tripId/budget",
+      "/transport",
+      "/hotels",
+      "/nearby",
+      "/assistant",
+      "/favorites",
+      "/profile",
+      "/settings"
+    ]
+  },
+  "mobileNav": ["Home", "Explore", "Trips", "AI", "Profile"],
+  "gradientsAllowedOn": ["hero", "cta", "ai", "active", "premium-highlight"]
+}

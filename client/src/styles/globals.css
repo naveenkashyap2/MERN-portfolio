@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  background: #0b1120;
+}
+
+body {
+  @apply text-ink font-sans;
+}
+
+::selection {
+  background: rgba(59, 130, 246, 0.35);
+}
+
+*:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.card {
+  @apply bg-bg-card rounded-xl border border-white/10 shadow-card;
+}
+
+.input {
+  @apply w-full rounded-md bg-bg-elevated border border-white/10 px-4 py-3 text-sm text-ink placeholder:text-ink-mute focus:border-accent focus:ring-0;
+}
+
+.label {
+  @apply block text-sm text-ink-mute mb-2;
+}
+
+.leaflet-container {
+  background: #111827;
+  font-family: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

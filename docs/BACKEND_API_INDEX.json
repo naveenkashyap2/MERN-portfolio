@@ -1,0 +1,137 @@
+{
+  "basePath": "/api/v1",
+  "locked": true,
+  "modules": {
+    "auth": [
+      { "method": "POST", "path": "/api/v1/auth/register" },
+      { "method": "POST", "path": "/api/v1/auth/login" },
+      { "method": "POST", "path": "/api/v1/auth/google" },
+      { "method": "POST", "path": "/api/v1/auth/refresh" },
+      { "method": "POST", "path": "/api/v1/auth/logout" },
+      { "method": "POST", "path": "/api/v1/auth/forgot-password" },
+      { "method": "POST", "path": "/api/v1/auth/reset-password" },
+      { "method": "GET", "path": "/api/v1/auth/me" },
+      { "method": "POST", "path": "/api/v1/auth/verify-email" }
+    ],
+    "users": [
+      { "method": "GET", "path": "/api/v1/users/me" },
+      { "method": "PATCH", "path": "/api/v1/users/me" },
+      { "method": "DELETE", "path": "/api/v1/users/me" },
+      { "method": "PATCH", "path": "/api/v1/users/me/preferences" },
+      { "method": "GET", "path": "/api/v1/users/me/preferences" },
+      { "method": "PATCH", "path": "/api/v1/users/me/avatar" }
+    ],
+    "trips": [
+      { "method": "POST", "path": "/api/v1/trips" },
+      { "method": "GET", "path": "/api/v1/trips" },
+      { "method": "GET", "path": "/api/v1/trips/:tripId" },
+      { "method": "PATCH", "path": "/api/v1/trips/:tripId" },
+      { "method": "DELETE", "path": "/api/v1/trips/:tripId" },
+      { "method": "POST", "path": "/api/v1/trips/:tripId/duplicate" },
+      { "method": "POST", "path": "/api/v1/trips/:tripId/share" },
+      { "method": "GET", "path": "/api/v1/trips/:tripId/share/:shareToken" }
+    ],
+    "aiTrip": [
+      { "method": "POST", "path": "/api/v1/ai/trip/generate" },
+      { "method": "POST", "path": "/api/v1/ai/trip/regenerate" },
+      { "method": "POST", "path": "/api/v1/ai/trip/optimize" },
+      { "method": "POST", "path": "/api/v1/ai/trip/replan" },
+      { "method": "POST", "path": "/api/v1/ai/trip/budget-optimize" },
+      { "method": "POST", "path": "/api/v1/ai/trip/route-optimize" },
+      { "method": "POST", "path": "/api/v1/ai/trip/suggest" }
+    ],
+    "itinerary": [
+      { "method": "GET", "path": "/api/v1/trips/:tripId/itinerary" },
+      { "method": "POST", "path": "/api/v1/trips/:tripId/itinerary" },
+      { "method": "PATCH", "path": "/api/v1/trips/:tripId/itinerary/:itemId" },
+      { "method": "DELETE", "path": "/api/v1/trips/:tripId/itinerary/:itemId" },
+      { "method": "POST", "path": "/api/v1/trips/:tripId/itinerary/reorder" },
+      { "method": "GET", "path": "/api/v1/trips/:tripId/itinerary/day/:day" }
+    ],
+    "location": [
+      { "method": "POST", "path": "/api/v1/location/start" },
+      { "method": "POST", "path": "/api/v1/location/update" },
+      { "method": "POST", "path": "/api/v1/location/stop" },
+      { "method": "GET", "path": "/api/v1/location/current" },
+      { "method": "GET", "path": "/api/v1/location/history" },
+      { "method": "GET", "path": "/api/v1/location/distance" },
+      { "method": "GET", "path": "/api/v1/location/arrival-status" }
+    ],
+    "routes": [
+      { "method": "POST", "path": "/api/v1/routes/plan" },
+      { "method": "POST", "path": "/api/v1/routes/walking" },
+      { "method": "POST", "path": "/api/v1/routes/driving" },
+      { "method": "POST", "path": "/api/v1/routes/transit" },
+      { "method": "POST", "path": "/api/v1/routes/compare" },
+      { "method": "GET", "path": "/api/v1/routes/:routeId" }
+    ],
+    "trains": [
+      { "method": "GET", "path": "/api/v1/transport/trains/search" },
+      { "method": "GET", "path": "/api/v1/transport/trains/:trainId" },
+      { "method": "GET", "path": "/api/v1/transport/trains/:trainId/schedule" },
+      { "method": "GET", "path": "/api/v1/transport/trains/availability" }
+    ],
+    "buses": [
+      { "method": "GET", "path": "/api/v1/transport/buses/search" },
+      { "method": "GET", "path": "/api/v1/transport/buses/:busId" },
+      { "method": "GET", "path": "/api/v1/transport/buses/:busId/schedule" },
+      { "method": "GET", "path": "/api/v1/transport/buses/availability" }
+    ],
+    "walking": [
+      { "method": "POST", "path": "/api/v1/walking/route" },
+      { "method": "GET", "path": "/api/v1/walking/distance" },
+      { "method": "GET", "path": "/api/v1/walking/eta" }
+    ],
+    "hotels": [
+      { "method": "GET", "path": "/api/v1/hotels/search" },
+      { "method": "GET", "path": "/api/v1/hotels/:hotelId" },
+      { "method": "GET", "path": "/api/v1/hotels/recommended" },
+      { "method": "GET", "path": "/api/v1/hotels/budget" },
+      { "method": "GET", "path": "/api/v1/hotels/medium" },
+      { "method": "GET", "path": "/api/v1/hotels/premium" }
+    ],
+    "places": [
+      { "method": "GET", "path": "/api/v1/places/search" },
+      { "method": "GET", "path": "/api/v1/places/nearby" },
+      { "method": "GET", "path": "/api/v1/places/:placeId" },
+      { "method": "GET", "path": "/api/v1/places/temples" },
+      { "method": "GET", "path": "/api/v1/places/gurudwaras" },
+      { "method": "GET", "path": "/api/v1/places/historical" },
+      { "method": "GET", "path": "/api/v1/places/nature" },
+      { "method": "GET", "path": "/api/v1/places/recommended" }
+    ],
+    "expenses": [
+      { "method": "POST", "path": "/api/v1/trips/:tripId/expenses" },
+      { "method": "GET", "path": "/api/v1/trips/:tripId/expenses" },
+      { "method": "GET", "path": "/api/v1/trips/:tripId/expenses/:expenseId" },
+      { "method": "PATCH", "path": "/api/v1/trips/:tripId/expenses/:expenseId" },
+      { "method": "DELETE", "path": "/api/v1/trips/:tripId/expenses/:expenseId" },
+      { "method": "GET", "path": "/api/v1/trips/:tripId/expenses/summary" }
+    ],
+    "assistant": [
+      { "method": "POST", "path": "/api/v1/assistant/chat" },
+      { "method": "GET", "path": "/api/v1/assistant/conversations" },
+      { "method": "GET", "path": "/api/v1/assistant/conversations/:conversationId" },
+      { "method": "POST", "path": "/api/v1/assistant/conversations" },
+      { "method": "DELETE", "path": "/api/v1/assistant/conversations/:conversationId" },
+      { "method": "POST", "path": "/api/v1/assistant/replan" }
+    ],
+    "notifications": [
+      { "method": "GET", "path": "/api/v1/notifications" },
+      { "method": "PATCH", "path": "/api/v1/notifications/:notificationId/read" },
+      { "method": "PATCH", "path": "/api/v1/notifications/read-all" },
+      { "method": "DELETE", "path": "/api/v1/notifications/:notificationId" }
+    ],
+    "favorites": [
+      { "method": "POST", "path": "/api/v1/favorites" },
+      { "method": "GET", "path": "/api/v1/favorites" },
+      { "method": "DELETE", "path": "/api/v1/favorites/:favoriteId" },
+      { "method": "GET", "path": "/api/v1/favorites/check/:placeId" }
+    ],
+    "health": [
+      { "method": "GET", "path": "/api/v1/health" },
+      { "method": "GET", "path": "/api/v1/health/database" },
+      { "method": "GET", "path": "/api/v1/health/services" }
+    ]
+  }
+}
