@@ -6,3 +6,5 @@ dist/
 client/dist
 server/logs
 uploads/
+data/
+server/data/

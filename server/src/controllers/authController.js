@@ -31,6 +31,7 @@ export const signup = async (req, res) => {
     const hashed = await bcrypt.hash(password, 10);
     const user = { _id: memoryStore.generateId(), name, email, password: hashed, avatar: avatar || "", role: "user", history: [], stats: { totalTrips:0, totalDistanceKm:0, totalSteps:0 }, createdAt: new Date() };
     memoryStore.users.push(user);
+    memoryStore.persist();
     const token = generateToken(user._id);
     const { password: pw, ...safe } = user;
     return res.status(201).json({ success: true, message: "Account created (in-memory)", data: { user: safe, token } });
@@ -80,6 +81,7 @@ export const googleAuth = async (req, res) => {
     if (!user) {
       user = { _id: memoryStore.generateId(), name: name || email.split("@")[0], email, password: await bcrypt.hash("google",10), avatar: avatar||"", role:"user", history:[], stats:{totalTrips:0,totalDistanceKm:0,totalSteps:0}, googleId, createdAt: new Date() };
       memoryStore.users.push(user);
+      memoryStore.persist();
     }
     const token = generateToken(user._id);
     const { password, ...safe } = user;
@@ -103,6 +105,7 @@ export const updateProfile = async (req, res) => {
     if (name) user.name = name;
     if (avatar !== undefined) user.avatar = avatar;
     if (preferences) user.preferences = { ...user.preferences, ...preferences };
+    memoryStore.persist();
     const { password, ...safe } = user;
     return res.json({ success: true, message: "Profile updated (memory)", data: { user: safe } });
   }
@@ -127,6 +130,7 @@ export const addHistory = async (req, res) => {
     if (distanceKm) user.stats.totalDistanceKm += Number(distanceKm);
     if (steps) user.stats.totalSteps += Number(steps);
     user.stats.totalTrips = user.history.length;
+    memoryStore.persist();
     return res.json({ success: true, data: { history: user.history, stats: user.stats } });
   }
 };

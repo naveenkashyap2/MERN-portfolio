@@ -21,12 +21,14 @@ const saveTrip = async (tripData, userId) => {
   } else {
     const trip = { _id: memoryStore.generateId(), ...tripData, user: userId, createdAt: new Date(), updatedAt: new Date(), views: 0 };
     memoryStore.trips.push(trip);
+    memoryStore.persist();
     const u = memoryStore.users.find(x=>x._id===userId);
     if (u) {
       u.history = u.history || [];
       u.history.unshift({ destination: tripData.destination, from: tripData.source, days: tripData.days, tripId: trip._id, visitedAt: new Date() });
       u.stats = u.stats || { totalTrips:0,totalDistanceKm:0,totalSteps:0 };
       u.stats.totalTrips = u.history.length;
+      memoryStore.persist();
     }
     return trip;
   }
@@ -116,7 +118,7 @@ export const getTripById = async (req, res) => {
     }
   } else {
     trip = memoryStore.trips.find(t => t._id === id);
-    if (trip) trip.views = (trip.views||0)+1;
+    if (trip) { trip.views = (trip.views||0)+1; memoryStore.persist(); }
   }
   if (!trip) return res.status(404).json({ success: false, message: "Trip not found" });
   // if trip belongs to other user and not public, block
@@ -140,6 +142,7 @@ export const deleteTrip = async (req, res) => {
     if (idx === -1) return res.status(404).json({ success: false, message: "Trip not found" });
     if (memoryStore.trips[idx].user !== req.user._id && req.user.role !== "admin") return res.status(403).json({ success: false, message: "Forbidden" });
     memoryStore.trips.splice(idx, 1);
+    memoryStore.persist();
   }
   res.json({ success: true, message: "Trip deleted" });
 };
