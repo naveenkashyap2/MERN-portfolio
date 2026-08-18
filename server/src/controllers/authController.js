@@ -29,7 +29,7 @@ export const signup = async (req, res) => {
       return res.status(409).json({ success: false, message: "Email already registered" });
     }
     const hashed = await bcrypt.hash(password, 10);
-    const user = { _id: memoryStore.generateId(), name, email, password: hashed, avatar: avatar || "", role: "user", isPremium: false, premiumPlan: "free", history: [], stats: { totalTrips:0, totalDistanceKm:0, totalSteps:0 }, createdAt: new Date() };
+    const user = { _id: memoryStore.generateId(), name, email, password: hashed, avatar: avatar || "", role: "user", history: [], stats: { totalTrips:0, totalDistanceKm:0, totalSteps:0 }, createdAt: new Date() };
     memoryStore.users.push(user);
     const token = generateToken(user._id);
     const { password: pw, ...safe } = user;
@@ -78,7 +78,7 @@ export const googleAuth = async (req, res) => {
   } else {
     let user = memoryStore.users.find(u => u.email === email);
     if (!user) {
-      user = { _id: memoryStore.generateId(), name: name || email.split("@")[0], email, password: await bcrypt.hash("google",10), avatar: avatar||"", role:"user", isPremium:false, premiumPlan:"free", history:[], stats:{totalTrips:0,totalDistanceKm:0,totalSteps:0}, googleId, createdAt: new Date() };
+      user = { _id: memoryStore.generateId(), name: name || email.split("@")[0], email, password: await bcrypt.hash("google",10), avatar: avatar||"", role:"user", history:[], stats:{totalTrips:0,totalDistanceKm:0,totalSteps:0}, googleId, createdAt: new Date() };
       memoryStore.users.push(user);
     }
     const token = generateToken(user._id);

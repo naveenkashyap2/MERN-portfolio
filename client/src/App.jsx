@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AppLayout from "./layouts/AppLayout";
 import Landing from "./pages/Landing";
@@ -9,7 +9,6 @@ import MyTrips from "./pages/MyTrips";
 import Admin from "./pages/Admin";
 import Profile from "./pages/Profile";
 import Live from "./pages/Live";
-import Premium from "./pages/Premium";
 import { Login, Signup } from "./pages/Auth";
 import { useAuthStore } from "./store/authStore";
 
@@ -18,12 +17,6 @@ const qc = new QueryClient();
 function Protected({ children }){
   const { isAuth } = useAuthStore();
   if (!isAuth) return <Navigate to="/login" replace />;
-  return children;
-}
-
-function VoiceWrapper({ children }){
-  const nav = useNavigate();
-  // This wrapper is not needed, VoiceAssistant inside Applayout handles
   return children;
 }
 
@@ -41,7 +34,6 @@ export default function App(){
             <Route path="/my-trips" element={<Protected><MyTrips/></Protected>} />
             <Route path="/history" element={<Protected><MyTrips/></Protected>} />
             <Route path="/live" element={<Protected><Live/></Protected>} />
-            <Route path="/premium" element={<Premium/>} />
             <Route path="/profile" element={<Protected><Profile/></Protected>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/signup" element={<Signup/>} />

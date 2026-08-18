@@ -14,7 +14,6 @@ import { errorHandler, notFound } from "./middleware/errorHandler.js";
 import authRoutes from "./routes/auth.js";
 import tripRoutes from "./routes/trips.js";
 import adminRoutes from "./routes/admin.js";
-import paymentRoutes from "./routes/payments.js";
 
 dotenv.config();
 
@@ -76,7 +75,6 @@ app.get("/api/v1/health", (req, res) => {
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/trips", aiLimiter, tripRoutes);
 app.use("/api/v1/admin", adminRoutes);
-app.use("/api/v1/payments", paymentRoutes);
 
 // 404 & Error
 app.use(notFound);

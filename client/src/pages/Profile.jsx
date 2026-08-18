@@ -3,7 +3,7 @@ import { useAuthStore } from "../store/authStore";
 import { Button, Card, Input, Badge } from "../components/UI";
 import api from "../services/api";
 import toast from "react-hot-toast";
-import { Camera, Crown, Footprints, MapPinned, Navigation } from "lucide-react";
+import { Camera, Footprints, MapPinned, Navigation } from "lucide-react";
 
 export default function Profile(){
   const { user, setUser } = useAuthStore();
@@ -54,15 +54,13 @@ export default function Profile(){
               <Camera size={14}/>
               <input type="file" accept="image/*" className="hidden" onChange={onFile}/>
             </label>
-            {user?.isPremium && <span className="absolute -top-2 -right-2 bg-amber-500 text-white text-xs px-2 py-1 rounded-full font-bold flex items-center gap-1"><Crown size={10}/> {user.premiumPlan}</span>}
           </div>
           <h3 className="font-bold mt-4">{user?.name}</h3>
           <p className="text-sm text-muted">{user?.email}</p>
-          <Badge className="mt-2" variant={user?.isPremium?"primary":"default"}>{user?.isPremium ? `Premium ${user?.premiumPlan}` : "Free Plan"}</Badge>
 
           <div className="mt-6 space-y-3 text-left">
             <Input label="Name" value={name} onChange={e=>setName(e.target.value)} />
-            <p className="text-xs text-muted">Photo 2MB tak, auto save hoga. Base64 me store — small image choose karo.</p>
+            <p className="text-xs text-muted">Photo 2MB tak — small image choose karo, base64 me save hoga.</p>
             <Button onClick={save} disabled={saving} className="w-full">{saving?"Saving...":"Save Profile"}</Button>
           </div>
         </Card>
@@ -89,12 +87,6 @@ export default function Profile(){
                 ))}
               </div>
             )}
-          </Card>
-
-          <Card className="p-5 bg-gradient-to-br from-charcoal to-gray-800 text-white">
-            <h3 className="font-semibold flex items-center gap-2"><Crown size={16} className="text-amber-400"/> Premium Status</h3>
-            <p className="text-sm opacity-80 mt-1">{user?.isPremium ? `Active — ${user.premiumPlan} till ${user.premiumUntil ? new Date(user.premiumUntil).toLocaleDateString() : "∞"}` : "Free plan — Upgrade to unlock Voice + Live Tracker + Unlimited"}</p>
-            {!user?.isPremium && <a href="/premium" className="inline-block mt-3 bg-white text-charcoal px-4 py-2 rounded-xl text-sm font-semibold">Go Premium ₹149 →</a>}
           </Card>
         </div>
       </div>

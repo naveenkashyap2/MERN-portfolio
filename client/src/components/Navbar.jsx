@@ -1,8 +1,8 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { MapPinned, Compass, Bookmark, LogOut, Menu, X, Sparkles, Navigation, Crown, User, History } from "lucide-react";
+import { MapPinned, Compass, Bookmark, LogOut, Menu, X, Sparkles, Navigation, User } from "lucide-react";
 import { useState } from "react";
 import { useAuthStore } from "../store/authStore";
-import { Button, Badge } from "./UI";
+import { Button } from "./UI";
 
 export default function Navbar() {
   const { isAuth, user, logout } = useAuthStore();
@@ -32,7 +32,6 @@ export default function Navbar() {
             <Link to="/create" className={`text-sm ${isActive("/create")}`}>Plan Trip</Link>
             <Link to="/live" className={`text-sm flex items-center gap-1 ${isActive("/live")}`}><Navigation size={14}/> Live</Link>
             {isAuth && <Link to="/my-trips" className={`text-sm flex items-center gap-1 ${isActive("/my-trips")}`}><Bookmark size={14}/> My Trips</Link>}
-            <Link to="/premium" className={`text-sm flex items-center gap-1 ${isActive("/premium")} ${!user?.isPremium ? "text-amber-600":""}`}><Crown size={14}/> Premium</Link>
             {isAuth && user?.role === "admin" && <Link to="/admin" className={`text-sm ${isActive("/admin")}`}>Admin</Link>}
           </nav>
 
@@ -47,8 +46,8 @@ export default function Navbar() {
                 <Link to="/profile" className="flex items-center gap-2 hover:bg-gray-50 rounded-full pr-3 pl-1 py-1 border border-transparent hover:border-border">
                   <img src={user?.avatar || `https://i.pravatar.cc/100?u=${user?.email}`} alt="avatar" className="w-8 h-8 rounded-full object-cover border"/>
                   <div className="text-left hidden lg:block">
-                    <p className="text-sm font-medium leading-none flex items-center gap-1">{user?.name} {user?.isPremium && <Crown size={10} className="text-amber-500"/>}</p>
-                    <p className="text-xs text-muted">{user?.isPremium ? user.premiumPlan : "Free"}</p>
+                    <p className="text-sm font-medium leading-none">{user?.name}</p>
+                    <p className="text-xs text-muted">{user?.email?.split("@")[0]}</p>
                   </div>
                 </Link>
                 <Link to="/profile" className="p-2 hover:bg-gray-50 rounded-xl text-muted" title="Profile"><User size={18}/></Link>
@@ -69,7 +68,6 @@ export default function Navbar() {
           <Link onClick={()=>setOpen(false)} to="/live" className="flex items-center gap-2 py-2 text-sm"><Navigation size={16}/> Live Tracker</Link>
           {isAuth && <Link onClick={()=>setOpen(false)} to="/my-trips" className="flex items-center gap-2 py-2 text-sm"><Bookmark size={16}/> My Trips</Link>}
           <Link onClick={()=>setOpen(false)} to="/profile" className="flex items-center gap-2 py-2 text-sm"><User size={16}/> Profile</Link>
-          <Link onClick={()=>setOpen(false)} to="/premium" className="flex items-center gap-2 py-2 text-sm text-amber-600"><Crown size={16}/> Premium</Link>
           {!isAuth ? (
             <div className="flex gap-2 pt-2">
               <Link to="/login" className="flex-1"><Button variant="secondary" className="w-full">Login</Button></Link>

@@ -5,12 +5,8 @@ const userSchema = new mongoose.Schema(
     name: { type: String, required: true, trim: true, maxlength: 50 },
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     password: { type: String, required: true, minlength: 6, select: false },
-    avatar: { type: String, default: "" }, // base64 or URL
+    avatar: { type: String, default: "" },
     role: { type: String, enum: ["user", "admin"], default: "user" },
-    isPremium: { type: Boolean, default: false },
-    premiumPlan: { type: String, enum: ["free", "explorer", "pro"], default: "free" },
-    premiumSince: { type: Date },
-    premiumUntil: { type: Date },
     preferences: {
       travelStyle: { type: String, enum: ["budget", "comfort", "luxury"], default: "comfort" },
       interests: { type: [String], default: [] },

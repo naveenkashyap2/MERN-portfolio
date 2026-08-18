@@ -72,7 +72,6 @@ export default function VoiceAssistant({ onAction }) {
     rec.onend = () => setListening(false);
     recRef.current = rec;
     rec.start();
-    // greet first
     if (!transcript) speak(RESPONSES[lang].greet);
   };
 
@@ -85,7 +84,6 @@ export default function VoiceAssistant({ onAction }) {
   const handleCommand = (text) => {
     const lower = text.toLowerCase();
     let r = "";
-    // simple intent
     if (lower.includes("kanpur") && lower.includes("delhi")) {
       r = lang==="hi-IN" ? "कानपुर से दिल्ली के लिए बढ़िया! Highway NH19 440km, Shram Shakti 23:55 वाली ट्रेन सबसे अच्छी है। क्या मैं 2 दिन का प्लान बना दूँ?" :
           lang==="en-IN" ? "Kanpur to Delhi — great! NH19 440km by road, Shram Shakti 23:55 train is best. Shall I create 2-day plan?" :
@@ -101,9 +99,6 @@ export default function VoiceAssistant({ onAction }) {
       r = lang==="hi-IN" ? "लाइव ट्रैकर खोल रहा हूँ — हर कदम track होगा!" : "Opening live tracker — every step will be tracked!";
       speak(r); setReply(r);
       if (onAction) onAction({ type: "live" });
-    } else if (lower.includes("premium") || lower.includes("pay")) {
-      r = lang==="hi-IN" ? "प्रीमियम ₹149 Explorer और ₹199 Pro है — Razorpay से secure payment!" : "Premium is ₹149 Explorer & ₹199 Pro — secure Razorpay!";
-      speak(r); setReply(r);
     } else {
       r = lang==="hi-IN" ? `आपने कहा: "${text}" — मैं इसे समझ रहा हूँ। "Kanpur to Delhi plan" बोलकर देखिए!` : `You said: "${text}" — Try saying "Kanpur to Delhi plan"`;
       speak(r); setReply(r);
@@ -156,10 +151,10 @@ export default function VoiceAssistant({ onAction }) {
             <div className="flex flex-wrap gap-2 text-xs">
               <button onClick={()=>{setTranscript("Kanpur se Delhi 2 din ka plan"); handleCommand("Kanpur se Delhi 2 din ka plan");}} className="px-3 py-1.5 bg-gray-100 rounded-full hover:bg-gray-200">“Kanpur → Delhi”</button>
               <button onClick={()=>handleCommand("Live tracker kholo")} className="px-3 py-1.5 bg-gray-100 rounded-full hover:bg-gray-200">“Live tracker”</button>
-              <button onClick={()=>handleCommand("Premium kya hai")} className="px-3 py-1.5 bg-gray-100 rounded-full hover:bg-gray-200">“Premium?”</button>
+              <button onClick={()=>handleCommand("History dikhao")} className="px-3 py-1.5 bg-gray-100 rounded-full hover:bg-gray-200">“History?”</button>
             </div>
 
-            <p className="text-[11px] text-muted text-center">Hindi • English • मराठी • ಕನ್ನಡ — Auto speak & listen</p>
+            <p className="text-[11px] text-muted text-center">Hindi • English • मराठी • ಕನ್ನಡ — Auto speak & listen • 100% Free</p>
           </div>
         </div>
       )}

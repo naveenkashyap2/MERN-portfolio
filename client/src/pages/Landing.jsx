@@ -18,7 +18,7 @@ export default function Landing() {
                 <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span> Live Location Tracker + Voice Assistant • 4 Languages
               </div>
               <h1 className="display text-4xl sm:text-5xl lg:text-[56px] font-extrabold leading-[0.95] tracking-tight text-charcoal mt-4">
-                Har Yatra,<br/> <span className="bg-gradient-to-r from-primary-600 to-emerald-500 bg-clip-text text-transparent">AI Ke Saath</span><br/>Premium.
+                Har Yatra,<br/> <span className="bg-gradient-to-r from-primary-600 to-emerald-500 bg-clip-text text-transparent">AI Ke Saath</span><br/>Free.
               </h1>
               <p className="mt-4 text-lg text-muted leading-relaxed max-w-xl">
                 Kanpur se Delhi ya Kashmir se Kanyakumari — <b className="text-charcoal">Train, Highway, Flight ka best route</b>, live tracking, hotel-food-map sab ek hi plan me. Dekhte hi book karne ka mann kare.
@@ -71,9 +71,9 @@ export default function Landing() {
                   </div>
                 </motion.div>
                 <motion.div initial={{y:10, opacity:0}} animate={{y:0, opacity:1}} transition={{delay:0.7}} className="absolute -right-2 sm:right-4 top-8 bg-charcoal text-white rounded-2xl p-3.5 shadow-xl min-w-[160px]">
-                  <p className="text-xs opacity-70 flex items-center gap-1"><Crown size={12} className="text-amber-400"/> Premium</p>
-                  <p className="text-xl font-bold">₹149 / ₹199</p>
-                  <p className="text-xs opacity-60">Razorpay • Unlock all</p>
+                  <p className="text-xs opacity-70 flex items-center gap-1"><Sparkles size={12} className="text-emerald-300"/> Free Forever</p>
+                  <p className="text-xl font-bold">100% Free</p>
+                  <p className="text-xs opacity-60">No payment • No limits</p>
                   <div className="mt-2 flex gap-1">
                     <span className="w-6 h-1.5 bg-white rounded-full"></span><span className="w-3 h-1.5 bg-white/40 rounded-full"></span>
                   </div>
@@ -104,7 +104,7 @@ export default function Landing() {
           <span className="w-1 h-1 bg-border rounded-full hidden sm:block"/>
           <span className="flex items-center gap-1.5"><Navigation size={14} className="text-primary-500"/> Live 20km / 10km + Steps</span>
           <span className="w-1 h-1 bg-border rounded-full hidden sm:block"/>
-          <span className="flex items-center gap-1.5"><Crown size={14} className="text-amber-500"/> Premium ₹149 & ₹199 Razorpay</span>
+          <span className="flex items-center gap-1.5"><Sparkles size={14} className="text-amber-500"/> 100% Free Forever</span>
         </div>
       </section>
 
@@ -142,8 +142,8 @@ export default function Landing() {
               {icon: Clock, title: "Highway vs Train vs Flight", desc: "Kanpur → Delhi: NH19 440km 6h vs Shram Shakti 23:55 vs Flight 1h. Sab ka time, cost, best option.", color:"bg-blue-50 text-blue-600", badge:"All Routes"},
               {icon: Mic, title: "Bolo-To-Karo Voice AI", desc: "‘Delhi ka mausam kaisa hai?’ Hindi, English, मराठी, ಕನ್ನಡ me bolo — AI turant jawab dega aur kaam bhi karega.", color:"bg-violet-50 text-violet-600", badge:"4 Languages"},
               {icon: Hotel, title: "Stay + Food + Budget Wow", desc: "Har budget me 3 hotel, local khana aur har rupee ka hisab — style ke hisab se (Budget/Comfort/Luxury).", color:"bg-amber-50 text-amber-600", badge:"₹ Split"},
-              {icon: Wallet, title: "Premium Razorpay", desc: "₹149 Explorer (unlimited trips) & ₹199 Pro (voice + live + offline). Ek click me unlock.", color:"bg-rose-50 text-rose-600", badge:"₹149/199"},
-              {icon: Utensils, title: "History & Profile", desc: "Kaha gaye, kitna chale, kab gaye — poori history. Profile me photo lagao, premium badge dikhao.", color:"bg-teal-50 text-teal-600", badge:"Timeline"},
+              {icon: Wallet, title: "100% Free & Unlimited", desc: "Kitne bhi trips banao — no payment, no limits. Sab features free.", color:"bg-rose-50 text-rose-600", badge:"Free"},
+              {icon: Utensils, title: "History & Profile", desc: "Kaha gaye, kitna chale, kab gaye — poori history. Profile me photo lagao, free badge dikhao.", color:"bg-teal-50 text-teal-600", badge:"Timeline"},
             ].map(f=>(
               <Card key={f.title} className="p-6 hover:shadow-card transition relative overflow-hidden group">
                 {f.badge && <span className="absolute top-3 right-3 text-[10px] font-bold tracking-wider bg-charcoal text-white px-2 py-1 rounded-full">{f.badge}</span>}
@@ -153,38 +153,6 @@ export default function Landing() {
               </Card>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* PREMIUM PRICING */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div className="text-center max-w-2xl mx-auto">
-          <h2 className="display text-3xl font-bold">Premium Bano, Zyada Pao</h2>
-          <p className="text-muted mt-2">Free me 3 trips — Premium me sab unlimited + voice + live</p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-6 mt-8 max-w-4xl mx-auto">
-          <Card className="p-6">
-            <h3 className="font-bold">Free</h3><p className="text-3xl font-extrabold mt-2">₹0</p><p className="text-xs text-muted">3 trips / month</p>
-            <ul className="mt-4 space-y-2 text-sm text-muted">
-              <li>✓ 3 AI itineraries</li><li>✓ Basic map</li><li>✓ Explore</li><li className="opacity-50">✗ Live tracker</li><li className="opacity-50">✗ Voice</li>
-            </ul>
-            <Link to="/create" className="mt-6 block"><Button variant="secondary" className="w-full">Start Free</Button></Link>
-          </Card>
-          <Card className="p-6 border-primary-200 shadow-card relative scale-[1.02]">
-            <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary-600 text-white text-xs font-bold px-3 py-1 rounded-full">Most Popular</span>
-            <h3 className="font-bold flex items-center gap-2">Explorer <Crown size={14} className="text-amber-500"/></h3><p className="text-3xl font-extrabold mt-2">₹149</p><p className="text-xs text-muted">per month • Razorpay</p>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li>✓ Unlimited trips</li><li>✓ Live 20km/10km tracker</li><li>✓ Steps + History</li><li>✓ Voice (Hindi/English)</li><li>✓ All India routes</li>
-            </ul>
-            <Link to="/premium" className="mt-6 block"><Button className="w-full">Go Premium — Razorpay</Button></Link>
-          </Card>
-          <Card className="p-6 bg-gradient-to-br from-violet-600 to-indigo-600 text-white border-0">
-            <h3 className="font-bold flex items-center gap-2">Pro <Zap size={14}/></h3><p className="text-3xl font-extrabold mt-2">₹199</p><p className="text-xs opacity-80">per month • Razorpay</p>
-            <ul className="mt-4 space-y-2 text-sm opacity-90">
-              <li>✓ Explorer sab kuch</li><li>✓ 4 languages voice</li><li>✓ Offline maps</li><li>✓ Priority support</li><li>✓ Profile badge • No ads</li>
-            </ul>
-            <Link to="/premium" className="mt-6 block"><Button variant="secondary" className="w-full bg-white text-violet-700 hover:bg-white">Go Pro</Button></Link>
-          </Card>
         </div>
       </section>
 
