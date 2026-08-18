@@ -1,0 +1,25 @@
+# YatraGenie AI — local live MongoDB
+# Usage: docker compose up -d mongo
+# Then set server/.env:
+#   MONGODB_URI=mongodb://127.0.0.1:27017/yatragenie
+#   USE_IN_MEMORY_DB=false
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: yatragenie-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: yatragenie
+    volumes:
+      - yatragenie_mongo:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.runCommand({ ping: 1 }).ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  yatragenie_mongo:

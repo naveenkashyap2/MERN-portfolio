@@ -4,36 +4,45 @@ India's AI Travel & Trip Planning Assistant.
 
 **Budget bolo → YatraGenie tumhare liye complete trip plan kare.**
 
-## Stack
+## Copy & run LIVE (MongoDB)
 
-- Client: React, Vite, Tailwind, Framer Motion, React Router, Axios, TanStack Query, Recharts, Lucide
-- Server: Node, Express, MongoDB, Mongoose, Gemini (server-side only)
-
-## Quick start
+Full steps: **[COPY-AND-RUN.md](COPY-AND-RUN.md)**  
+Folder tree (frontend first, then backend, then MongoDB): **[docs/FOLDER_STRUCTURE.md](docs/FOLDER_STRUCTURE.md)**
 
 ```bash
 cp server/.env.example server/.env
 cp client/.env.example client/.env
+
+# live database
+docker compose up -d mongo
+# server/.env already has:
+#   MONGODB_URI=mongodb://127.0.0.1:27017/yatragenie
+#   USE_IN_MEMORY_DB=false
+
+npm install
 npm run install:all
+npm run seed
 npm run dev
 ```
 
-- App: http://localhost:5173
-- API: http://localhost:5000/api/v1/health
-- Swagger: http://localhost:5000/api/v1/docs
+- App: http://localhost:5173  
+- API: http://localhost:5000/api/v1/health  
+- Swagger: http://localhost:5000/api/v1/docs  
+- Demo login: `demo@yatragenie.ai` / `Travel@123`
 
-Without Atlas, the API starts an in-memory MongoDB (`USE_IN_MEMORY_DB=true`).
+## Stack
+
+| | |
+|---|---|
+| Frontend | React, Vite, Tailwind, Framer Motion, Router, Axios, TanStack Query, Recharts, Lucide |
+| Backend | Node, Express, Mongoose |
+| Database | **MongoDB** (`yatragenie`) |
+| AI | Google Gemini — **server only** |
 
 ## Contracts
 
 - [docs/API.md](docs/API.md)
 - [docs/FRONTEND.md](docs/FRONTEND.md)
 - [docs/DESIGN.md](docs/DESIGN.md)
+- [docs/DATABASE.md](docs/DATABASE.md)
 - [REMIND.md](REMIND.md)
-
-## Demo
-
-1. Register with a strong password (`Travel@123` works).
-2. Open **Plan Trip**, keep Delhi → Agra, generate.
-3. Open the trip dashboard, itinerary, map, budget.
-4. Transport/hotels show **CATALOG / ESTIMATED** until a live provider is connected — never fake “Live” seats.
