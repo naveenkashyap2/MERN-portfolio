@@ -1,23 +1,26 @@
 import { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { Sparkles, MapPinned, Calendar, Users, Wallet, Loader2 } from "lucide-react";
+import { useNavigate, useSearchParams, Link } from "react-router-dom";
+import { Sparkles, MapPinned, Calendar, Users, Wallet, Loader2, Lock } from "lucide-react";
 import { Button, Card, Input, Select } from "../components/UI";
 import { INTERESTS, TRAVEL_STYLES } from "../constants";
 import { useGenerateTrip } from "../hooks/useTrip";
+import { useAuthStore } from "../store/authStore";
+import toast from "react-hot-toast";
 
 export default function CreateTrip(){
   const [params] = useSearchParams();
   const nav = useNavigate();
   const { generate, loading } = useGenerateTrip();
+  const { isAuth } = useAuthStore();
   const [form, setForm] = useState({
-    source: "Delhi",
-    destination: params.get("destination") || "Goa",
-    days: 3,
+    source: "Kanpur",
+    destination: params.get("destination") || "Delhi",
+    days: 2,
     travelers: 2,
-    budget: 15000,
+    budget: 8000,
     budgetType: "total",
     travelStyle: "comfort",
-    interests: ["Nature","Food"]
+    interests: ["Culture","Food"]
   });
 
   const toggleInterest = (i) => {
@@ -26,28 +29,46 @@ export default function CreateTrip(){
 
   const submit = async (e) => {
     e.preventDefault();
+    if (!isAuth) { toast.error("Login required — security ke liye mandatory hai"); nav("/login"); return; }
     try{
       const data = await generate(form);
       const trip = data.trip;
       if (trip && trip._id) nav(`/trip/${trip._id}`);
       else nav("/trip/preview", { state: { trip } });
-    }catch{}
+      // also push to history stats (handled backend)
+    }catch(err){
+      if (err.response?.status===401) { toast.error("Session expired, login again"); nav("/login"); }
+    }
   };
+
+  if (!isAuth) {
+    return (
+      <div className="max-w-2xl mx-auto px-4 py-16 text-center">
+        <div className="w-16 h-16 bg-amber-50 border border-amber-200 rounded-2xl flex items-center justify-center mx-auto"><Lock size={24} className="text-amber-600"/></div>
+        <h2 className="display text-2xl font-bold mt-4">Login Required</h2>
+        <p className="text-muted mt-2">Security ke liye YatraGenie me har trip ke liye login mandatory hai. Aapka data safe rahega.</p>
+        <div className="flex gap-3 justify-center mt-6">
+          <Link to="/login"><Button size="lg">Login</Button></Link>
+          <Link to="/signup"><Button variant="secondary" size="lg">Create Account</Button></Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="text-center max-w-2xl mx-auto mb-8">
         <h1 className="display text-3xl font-bold">Plan Your Dream Trip ✨</h1>
-        <p className="text-muted mt-2">Batao kahan jana hai — <b className="text-charcoal">Gemini 30 sec me pura plan bana dega</b> with map & budget</p>
+        <p className="text-muted mt-2">Kanpur → Delhi ya All India — <b className="text-charcoal">Train time, Highway, Flight best route + map + budget</b> 30 sec me</p>
       </div>
 
       <Card className="p-6 sm:p-8">
         <form onSubmit={submit} className="space-y-6">
           <div className="grid sm:grid-cols-2 gap-4">
-            <Input label="Source (Kahan se?)" value={form.source} onChange={e=>setForm({...form, source:e.target.value})} placeholder="Delhi" required />
-            <Input label="Destination (Kahan jana hai?)" value={form.destination} onChange={e=>setForm({...form, destination:e.target.value})} placeholder="Goa, Manali, Jaipur..." required list="destList"/>
+            <Input label="Source (Kahan se?)" value={form.source} onChange={e=>setForm({...form, source:e.target.value})} placeholder="Kanpur" required />
+            <Input label="Destination (Kahan jana hai?)" value={form.destination} onChange={e=>setForm({...form, destination:e.target.value})} placeholder="Delhi, Goa, Jaipur..." required list="destList"/>
             <datalist id="destList">
-              <option value="Goa"/><option value="Manali"/><option value="Jaipur"/><option value="Kerala"/><option value="Leh Ladakh"/><option value="Udaipur"/><option value="Varanasi"/><option value="Darjeeling"/>
+              <option value="Goa"/><option value="Delhi"/><option value="Kanpur"/><option value="Manali"/><option value="Jaipur"/><option value="Kerala"/><option value="Varanasi"/><option value="Lucknow"/><option value="Ayodhya"/>
             </datalist>
           </div>
 
@@ -87,22 +108,22 @@ export default function CreateTrip(){
             </div>
           </div>
 
-          <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4 flex gap-3">
-            <span className="text-amber-600">💡</span>
-            <p className="text-sm text-amber-800"><b>Pro Tip:</b> Budget me hi hotels + food + activities sab include hai. Gemini aapke budget ke hisaab se hi suggestions dega — budget me raho!</p>
+          <div className="bg-violet-50 border border-violet-100 rounded-2xl p-4 flex gap-3">
+            <span className="text-violet-600">✨</span>
+            <p className="text-sm text-violet-900"><b>Kanpur → Delhi special:</b> Shram Shakti 23:55, Shatabdi 06:00 ke live timings + NH19 highway + flight — best option auto suggest hoga!</p>
           </div>
 
           <Button type="submit" size="lg" className="w-full text-base" disabled={loading}>
-            {loading ? <><Loader2 className="animate-spin" size={18}/> Gemini Soch Raha Hai... (15-20 sec)</> : <><Sparkles size={18}/> Generate My Trip with Gemini AI</>}
+            {loading ? <><Loader2 className="animate-spin" size={18}/> Gemini Soch Raha Hai... (8-12 sec)</> : <><Sparkles size={18}/> Generate My Trip with Gemini AI</>}
           </Button>
-          <p className="text-center text-xs text-muted">Powered by Gemini 2.0 Flash • No login required • Free</p>
+          <p className="text-center text-xs text-muted">🔐 Secure • Preview ke baad Live Tracker ON kar sakte ho</p>
         </form>
       </Card>
 
       <div className="mt-6 grid sm:grid-cols-3 gap-3 text-center">
-        <Card className="p-4"><p className="text-2xl">⚡</p><p className="text-sm font-medium mt-1">30 Sec Me Plan</p><p className="text-xs text-muted">No waiting</p></Card>
-        <Card className="p-4"><p className="text-2xl">🗺️</p><p className="text-sm font-medium mt-1">Map Ke Saath</p><p className="text-xs text-muted">Interactive pins</p></Card>
-        <Card className="p-4"><p className="text-2xl">💰</p><p className="text-sm font-medium mt-1">Budget Perfect</p><p className="text-xs text-muted">Har rupee ka hisab</p></Card>
+        <Card className="p-4"><p className="text-2xl">🛣️</p><p className="text-sm font-medium mt-1">All Routes</p><p className="text-xs text-muted">Highway / Train / Flight</p></Card>
+        <Card className="p-4"><p className="text-2xl">📍</p><p className="text-sm font-medium mt-1">Live Map</p><p className="text-xs text-muted">All states + country</p></Card>
+        <Card className="p-4"><p className="text-2xl">👣</p><p className="text-sm font-medium mt-1">Steps</p><p className="text-xs text-muted">Har kadam count</p></Card>
       </div>
     </div>
   );

@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useParams, useLocation, Link } from "react-router-dom";
 import api from "../services/api";
 import MapView from "../components/MapView";
+import LiveTracker from "../components/LiveTracker";
 import { Button, Card, Badge, Skeleton } from "../components/UI";
-import { Calendar, Wallet, Users, MapPinned, Utensils, Hotel, Clock, Share2, Bookmark, MessageCircle, Send, Sparkles } from "lucide-react";
+import { Calendar, Wallet, Users, MapPinned, Utensils, Hotel, Clock, Share2, Bookmark, MessageCircle, Send, Train, Car, Plane, Navigation, Footprints } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function TripDetail(){
@@ -12,6 +13,8 @@ export default function TripDetail(){
   const [trip, setTrip] = useState(location.state?.trip || null);
   const [loading, setLoading] = useState(!trip);
   const [activeDay, setActiveDay] = useState(1);
+  const [activeRoute, setActiveRoute] = useState("train");
+  const [showLive, setShowLive] = useState(false);
   const [chatMsg, setChatMsg] = useState("");
   const [chatLoading, setChatLoading] = useState(false);
   const [chats, setChats] = useState([]);
@@ -49,6 +52,8 @@ export default function TripDetail(){
   const bb = trip.budgetBreakdown || {};
   const hotels = trip.hotels || [];
   const foods = trip.food || [];
+  const tr = trip.transportOptions || {};
+  const isKanpurDelhi = trip.source?.toLowerCase().includes("kanpur") && trip.destination?.toLowerCase().includes("delhi");
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -56,7 +61,10 @@ export default function TripDetail(){
       <div className="bg-gradient-to-br from-primary-600 to-emerald-500 rounded-[24px] p-6 sm:p-8 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-72 h-72 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"/>
         <div className="relative">
-          <Badge className="bg-white/20 text-white border-white/20">✨ Generated via Gemini {trip.isMock ? "(Mock)" : ""}</Badge>
+          <div className="flex flex-wrap gap-2">
+            <Badge className="bg-white/20 text-white border-white/20">✨ Gemini {trip.isMock ? "(Mock)" : "Live"}</Badge>
+            {isKanpurDelhi && <Badge className="bg-amber-400 text-charcoal">🔥 Kanpur → Delhi Special</Badge>}
+          </div>
           <h1 className="display text-2xl sm:text-3xl font-bold mt-3">{trip.title}</h1>
           <p className="opacity-90 mt-2 flex flex-wrap gap-3 text-sm">
             <span className="flex items-center gap-1"><MapPinned size={14}/> {trip.source} → {trip.destination}</span>
@@ -64,9 +72,10 @@ export default function TripDetail(){
             <span className="flex items-center gap-1"><Users size={14}/> {trip.travelers} Travelers</span>
             <span className="flex items-center gap-1"><Wallet size={14}/> {trip.overview?.totalEstimatedCost || `₹${trip.budget}`}</span>
           </p>
-          <div className="mt-4 flex gap-2">
+          <div className="mt-4 flex flex-wrap gap-2">
             <Button variant="secondary" size="sm" onClick={()=>{navigator.clipboard.writeText(window.location.href); toast.success("Link copied!");}}><Share2 size={14}/> Share</Button>
             <Link to="/my-trips"><Button variant="secondary" size="sm"><Bookmark size={14}/> Saved</Button></Link>
+            <Button variant="secondary" size="sm" onClick={()=>setShowLive(!showLive)} className={showLive?"bg-amber-500 text-white border-amber-500":""}><Navigation size={14}/> {showLive?"Hide Live":"Live Tracker"}</Button>
           </div>
         </div>
       </div>
@@ -80,17 +89,71 @@ export default function TripDetail(){
         <Card className="p-4 text-center bg-primary-600 text-white border-primary-600"><p className="text-xs opacity-80">Total</p><p className="font-bold">{bb.total || trip.overview?.totalEstimatedCost}</p></Card>
       </div>
 
+      {/* TRANSPORT OPTIONS - New */}
+      {tr.highway && (
+        <Card className="p-4 sm:p-5 mt-6">
+          <h3 className="font-bold flex items-center gap-2">Best Route — Highway / Train / Flight</h3>
+          <p className="text-xs text-muted">Kanpur → Delhi ke liye live train timings + highway sab yahan. All states ke liye auto.</p>
+          <div className="flex gap-2 mt-3 p-1 bg-gray-100 rounded-full w-fit">
+            <button onClick={()=>setActiveRoute("train")} className={`px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-1 ${activeRoute==="train"?"bg-white shadow text-charcoal":"text-muted"}`}><Train size={14}/> Train</button>
+            <button onClick={()=>setActiveRoute("highway")} className={`px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-1 ${activeRoute==="highway"?"bg-white shadow":"text-muted"}`}><Car size={14}/> Highway</button>
+            <button onClick={()=>setActiveRoute("flight")} className={`px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-1 ${activeRoute==="flight"?"bg-white shadow":"text-muted"}`}><Plane size={14}/> Flight</button>
+            <button onClick={()=>setActiveRoute("local")} className={`px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-1 ${activeRoute==="local"?"bg-white shadow":"text-muted"}`}><Footprints size={14}/> Local</button>
+          </div>
+
+          <div className="mt-4">
+            {activeRoute==="train" && tr.train && (
+              <div>
+                <p className="text-sm font-semibold">{tr.train.name}</p>
+                <div className="grid sm:grid-cols-2 gap-3 mt-2">
+                  {(tr.train.options||[]).map((t,i)=>(
+                    <div key={i} className="p-3 rounded-xl border bg-emerald-50/50 border-emerald-100">
+                      <p className="text-sm font-bold">{t.name}</p>
+                      <p className="text-xs font-mono bg-white inline-block px-2 py-1 rounded-full border mt-1">{t.time} • {t.duration}</p>
+                      <p className="text-xs text-muted mt-1">{t.from} → {t.to} • {t.price}</p>
+                      <p className="text-xs text-emerald-700 mt-1">{t.status}</p>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs bg-amber-50 border border-amber-100 text-amber-800 rounded-xl p-2 mt-3">💡 {tr.train.recommendation}</p>
+              </div>
+            )}
+            {activeRoute==="highway" && (
+              <div className="p-3 rounded-xl bg-blue-50 border border-blue-100">
+                <p className="font-semibold text-sm">{tr.highway.name} — {tr.highway.distance}</p>
+                <p className="text-sm mt-1">⏱️ {tr.highway.duration} • 💰 {tr.highway.cost}</p>
+                <p className="text-xs text-muted mt-1">{tr.highway.best}</p>
+                <p className="text-xs mt-2">Live highway map pe blue line aapka NH route hai.</p>
+              </div>
+            )}
+            {activeRoute==="flight" && (
+              <div className="p-3 rounded-xl bg-violet-50 border border-violet-100">
+                <p className="font-semibold text-sm">{tr.flight.name} — {tr.flight.distance} • {tr.flight.duration}</p>
+                <p className="text-sm mt-1">💰 {tr.flight.cost}</p>
+                <p className="text-xs text-muted mt-1">{tr.flight.note}</p>
+              </div>
+            )}
+            {activeRoute==="local" && (
+              <div className="p-3 rounded-xl bg-gray-50 border">
+                <p className="text-sm">{tr.local.note}</p>
+                <p className="text-xs text-muted mt-1">Live tracker me 10km/20km radius select karke aas-paas explore karo. Steps har 10m pe update.</p>
+              </div>
+            )}
+          </div>
+        </Card>
+      )}
+
+      {showLive && <div className="mt-6"><LiveTracker /></div>}
+
       <div className="grid lg:grid-cols-3 gap-6 mt-6">
-        {/* LEFT - ITINERARY */}
+        {/* LEFT */}
         <div className="lg:col-span-2 space-y-6">
-          {/* MAP */}
           <Card className="p-3">
-            <h3 className="font-semibold flex items-center gap-2 px-2 py-2"><MapPinned size={16} className="text-primary-600"/> Interactive Map</h3>
+            <h3 className="font-semibold flex items-center gap-2 px-2 py-2"><MapPinned size={16} className="text-primary-600"/> Interactive Map — All States</h3>
             <MapView center={trip.mapCenter} days={trip.itinerary} />
-            <p className="text-xs text-muted px-2 pt-2">📍 Har pin ek jagah — click karo details ke liye. Blue dotted line aapka route hai.</p>
+            <p className="text-xs text-muted px-2 pt-2">📍 All states & all country support — zoom out to see India. Click pin for details.</p>
           </Card>
 
-          {/* DAY TABS */}
           <div>
             <div className="flex gap-2 overflow-x-auto pb-2">
               {(trip.itinerary||[]).map(d=>(
@@ -133,10 +196,10 @@ export default function TripDetail(){
           </div>
         </div>
 
-        {/* RIGHT - HOTELS & FOOD & CHAT */}
+        {/* RIGHT */}
         <div className="space-y-6">
           <Card className="p-5">
-            <h3 className="font-semibold flex items-center gap-2"><Hotel size={16} className="text-violet-600"/> Hotels — 3 Options</h3>
+            <h3 className="font-semibold flex items-center gap-2"><Hotel size={16} className="text-violet-600"/> Hotels</h3>
             <div className="space-y-3 mt-3">
               {hotels.map((h,i)=>(
                 <div key={i} className="p-3 rounded-xl border bg-gray-50/60">
@@ -146,7 +209,6 @@ export default function TripDetail(){
                   <p className="text-xs text-muted mt-1">Why: {h.why}</p>
                 </div>
               ))}
-              {hotels.length===0 && <p className="text-sm text-muted">No hotels data</p>}
             </div>
           </Card>
 
@@ -172,14 +234,13 @@ export default function TripDetail(){
             </div>
           </Card>
 
-          {/* AI CHAT */}
           <Card className="p-0 overflow-hidden">
             <div className="p-4 border-b bg-gradient-to-r from-violet-50 to-emerald-50">
               <h3 className="font-semibold flex items-center gap-2 text-sm"><MessageCircle size={16} className="text-violet-600"/> Chat with Trip — Gemini</h3>
-              <p className="text-xs text-muted">Puchho: “Isme adventure add karo” ya “budget kam karo”</p>
+              <p className="text-xs text-muted">Hindi/English/मराठी/ಕನ್ನಡ me puchho</p>
             </div>
             <div className="h-[280px] overflow-auto p-4 space-y-3 bg-gray-50/30">
-              {chats.length===0 && <p className="text-xs text-muted text-center py-8">Try: “Vegetarian food options batao” <br/> “Solo travel safe hai?”</p>}
+              {chats.length===0 && <p className="text-xs text-muted text-center py-8">Try: “Kanpur se Delhi ka best train kaunsa?”</p>}
               {chats.map((c,i)=>(
                 <div key={i} className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm ${c.role==="user" ? "bg-primary-600 text-white ml-auto rounded-br-sm" : "bg-white border shadow-soft rounded-bl-sm"}`}>{c.text}</div>
               ))}

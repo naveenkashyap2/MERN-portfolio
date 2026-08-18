@@ -14,6 +14,7 @@ import { errorHandler, notFound } from "./middleware/errorHandler.js";
 import authRoutes from "./routes/auth.js";
 import tripRoutes from "./routes/trips.js";
 import adminRoutes from "./routes/admin.js";
+import paymentRoutes from "./routes/payments.js";
 
 dotenv.config();
 
@@ -23,7 +24,7 @@ const app = express();
 app.use(helmet());
 app.use(compression());
 app.use(cookieParser());
-app.use(express.json({ limit: "1mb" }));
+app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 const allowedOrigins = [
@@ -75,6 +76,7 @@ app.get("/api/v1/health", (req, res) => {
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/trips", aiLimiter, tripRoutes);
 app.use("/api/v1/admin", adminRoutes);
+app.use("/api/v1/payments", paymentRoutes);
 
 // 404 & Error
 app.use(notFound);

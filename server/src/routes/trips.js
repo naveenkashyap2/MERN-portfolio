@@ -10,24 +10,8 @@ router.get("/stats", getStats);
 router.get("/:id", getTripById);
 router.post("/chat/:id", chatTrip);
 
-// Protected optional - allow generation without auth but try to detect token
-router.post("/generate", async (req, res, next) => {
-  // Try to attach user if token present, but don't fail
-  const authHeader = req.headers.authorization;
-  if (authHeader) {
-    // Use protect middleware logic but optional
-    try {
-      await new Promise((resolve) => {
-        protect(req, res, (err) => {
-          if (err) resolve();
-          else resolve();
-        });
-      });
-    } catch {}
-  }
-  next();
-}, generateTrip);
-
+// Now MANDATORY AUTH - security important as per user request
+router.post("/generate", protect, generateTrip);
 router.get("/", protect, getMyTrips);
 router.delete("/:id", protect, deleteTrip);
 

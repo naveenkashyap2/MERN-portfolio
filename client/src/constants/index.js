@@ -1,12 +1,12 @@
 export const DESTINATIONS = [
-  { name: "Goa", emoji: "🏖️", tag: "Beaches" },
-  { name: "Manali", emoji: "🏔️", tag: "Mountains" },
-  { name: "Jaipur", emoji: "🏰", tag: "Heritage" },
-  { name: "Kerala", emoji: "🌴", tag: "Backwaters" },
-  { name: "Leh Ladakh", emoji: "🏜️", tag: "Adventure" },
+  { name: "Kanpur", emoji: "🏭", tag: "Uttar Pradesh" },
+  { name: "Delhi", emoji: "🏛️", tag: "Capital" },
+  { name: "Lucknow", emoji: "🕌", tag: "Nawabi" },
   { name: "Varanasi", emoji: "🪔", tag: "Spiritual" },
-  { name: "Udaipur", emoji: "🚣", tag: "Lakes" },
-  { name: "Darjeeling", emoji: "🍃", tag: "Tea Gardens" },
+  { name: "Goa", emoji: "🏖️", tag: "Beaches" },
+  { name: "Jaipur", emoji: "🏰", tag: "Heritage" },
+  { name: "Manali", emoji: "🏔️", tag: "Mountains" },
+  { name: "Kerala", emoji: "🌴", tag: "Backwaters" },
 ];
 
 export const INTERESTS = ["Nature", "Food", "Culture", "Adventure", "Spiritual", "Shopping", "Nightlife", "Photography"];
